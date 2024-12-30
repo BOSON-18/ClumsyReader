@@ -1,3 +1,4 @@
+import Header from '@/components/global/Header'
 import { ClerkLoaded } from '@clerk/nextjs'
 import React from 'react'
 
@@ -5,9 +6,13 @@ import React from 'react'
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <ClerkLoaded>
-            <div>
-                {/* Header */}
-                {children}
+            <div className='flex-1 flex flex-col h-screen'>
+
+                <Header />
+                <main className='flex-1 overflow-y-auto'>
+
+                    {children}
+                </main>
             </div>
 
 
