@@ -55,7 +55,7 @@ async function generateDocs(docId: string) {
         throw new Error("User not logged in")
     }
 
-    //console.log("Fetching the Donwload Url From Firebase Database");
+    console.log("Fetching the Donwload Url From Firebase Database");
     const fireBaseRef = await adminDb.collection("users").doc(userId).collection("files").doc(docId).get();
     const downloadUrl = fireBaseRef.data()?.downloadUrl;
 
@@ -73,10 +73,10 @@ async function generateDocs(docId: string) {
     const docs = await loader.load();
 
     //Splitting PDF into chunks
-    //console.log("Splitting the PDF")
+    console.log("Splitting the PDF")
     const splitter = new RecursiveCharacterTextSplitter();
     const splitDocs = await splitter.splitDocuments(docs);
-    //console.log(`Split into ${splitDocs.length} chunks`);
+    console.log(`Split into ${splitDocs.length} chunks`);
     return splitDocs;
 
 }
@@ -100,7 +100,7 @@ export async function generateEmbeddingsInPineConeVectorStore(docId: string) {
     let pineconeVectorStore;
 
     // Generate embeddings (numerical representation) for the split documents
-    //console.log("Generating embeddings...");
+    console.log("Generating embeddings...");
     const embeddings = new GoogleGenerativeAIEmbeddings({
         apiKey: process.env.GEMINI_API_KEY,
     })
@@ -108,7 +108,7 @@ export async function generateEmbeddingsInPineConeVectorStore(docId: string) {
     const namespaceAlreadyExists = await namespaceExists(index, docId);
 
     if (namespaceAlreadyExists) {
-        //console.log("Namespace already exists");
+        console.log("Namespace already exists");
         // No need to generete embeddings always so if already exits you chat model api call gets saved
 
         pineconeVectorStore = await PineconeStore.fromExistingIndex(embeddings, {
@@ -120,13 +120,13 @@ export async function generateEmbeddingsInPineConeVectorStore(docId: string) {
         // namesapce doesnt exist download the pdf from firestore database .Download Url pass kri thi upload krte time And generate embeddings and store them in Pinecone vector store
 
         const splitDocs = await generateDocs(docId);
-        //console.log(`Storing the embeddings in namespace ${docId} in the ${indexName} PineCOne vector store`);
+        console.log(`Storing the embeddings in namespace ${docId} in the ${indexName} PineCOne vector store`);
 
         pineconeVectorStore = await PineconeStore.fromDocuments(splitDocs, embeddings, {
             pineconeIndex: index,
             namespace: docId
         })
-//console.log("Upload DOne")
+console.log("Upload DOne")
         return pineconeVectorStore;
     }
 }
@@ -160,14 +160,14 @@ export const generateLangchainCompletion=async(docId:string,question:string)=>{
         ],
       ])
 
-      //console.log("--- Creating a history-aware retriever chain... ---");
+      console.log("--- Creating a history-aware retriever chain... ---");
   const historyAwareRetrieverChain = await createHistoryAwareRetriever({
     llm: llm,
     retriever,
     rephrasePrompt: historyAwarePrompt,
   });
 
-  //console.log("--- Defining a prompt template for answering questions... ---");
+  console.log("--- Defining a prompt template for answering questions... ---");
   const historyAwareRetrievalPrompt = ChatPromptTemplate.fromMessages([
     [
       "system",
@@ -179,27 +179,27 @@ export const generateLangchainCompletion=async(docId:string,question:string)=>{
     ["user", "{input}"],
   ]);
 
-  //console.log("--- Creating a document combining chain... ---");
+  console.log("--- Creating a document combining chain... ---");
   const historyAwareCombineDocsChain = await createStuffDocumentsChain({
     llm: llm,
     prompt: historyAwareRetrievalPrompt,
   });
 
   // Create the main retrieval chain that combines the history-aware retriever and document combining chains
-  //console.log("--- Creating the main retrieval chain... ---");
+  console.log("--- Creating the main retrieval chain... ---");
   const conversationalRetrievalChain = await createRetrievalChain({
     retriever: historyAwareRetrieverChain,
     combineDocsChain: historyAwareCombineDocsChain,
   });
 
-  //console.log("--- Running the chain with a sample conversation... ---");
+  console.log("--- Running the chain with a sample conversation... ---");
   const reply = await conversationalRetrievalChain.invoke({
     ChatHistory: chatHistory,
     input: question,
   });
 
-  // Print the result to the //console
-  //console.log(reply.answer);
+  // Print the result to the console
+  console.log(reply.answer);
   return reply.answer;
 
 }

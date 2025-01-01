@@ -48,7 +48,7 @@ function Chat({ id }: { id: string }) {
   useEffect(() => {
     if (!snapshot) return;
 
-    //console.log("Updated snapshot", snapshot.docs);
+    console.log("Updated snapshot", snapshot.docs);
 
     // get second last message to check if the AI is thinking
     const lastMessage = messages.pop();
@@ -99,7 +99,7 @@ function Chat({ id }: { id: string }) {
     startTransition(async () => {
       const { success, message } = await askQuestion(id, q);
 
-      //console.log("DEBUG", success, message);
+      console.log("DEBUG", success, message);
 
       if (!success) {
         toast({

@@ -15,7 +15,7 @@ export async function PUT(request: Request) {
 
   // Define the file path in Vercel Blob with the user ID
   const filePath = `users/${userId}/files/${file.name}`;
-  //console.log("File Path->", filePath);
+  console.log("File Path->", filePath);
 
   try {
     // Upload the file to Vercel Blob with public access
@@ -24,7 +24,7 @@ export async function PUT(request: Request) {
     // Return the blob metadata as the response, including the URL of the uploaded file
     return Response.json(blob);
   } catch (error) {
-    //console.error('Error uploading file:', error);
+    console.error('Error uploading file:', error);
     return new Response('Error uploading file', { status: 500 });
   }
 }
