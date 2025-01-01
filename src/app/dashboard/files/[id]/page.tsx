@@ -2,6 +2,8 @@ import { auth } from '@clerk/nextjs/server'
 import React from 'react'
 import { adminDb } from '../../../../../firsebaseAdmin'
 import PdfView from '@/components/global/PdfView'
+import Chat from '@/components/global/Chat'
+
 
 type Props = {
     params:{id:string}
@@ -21,7 +23,7 @@ const ChatToFilePage =async ({params}: Props) => {
     {/* Right */}
     <div className="col-span-5 lg:col-span-2 overflow-y-auto">
       {/* Chat */}
-      {/* <Chat id={id} /> */}
+     <Chat id={id} />
     </div>
 
     {/* Left */}
