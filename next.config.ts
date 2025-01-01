@@ -1,3 +1,4 @@
+import { hostname } from "os";
 
 const nextConfig = {
   webpack: (config:any) => {
@@ -19,6 +20,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "img.clerk.com",
       },
+      {
+        protocol:"https",
+        hostname:"images.unsplash.com"
+      }
     ],
   },
 };
