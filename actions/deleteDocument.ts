@@ -1,0 +1,1 @@
+export  async function deleteDocument(id: string) {}
