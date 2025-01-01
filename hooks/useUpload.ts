@@ -29,7 +29,7 @@ function useUpload() {
 
     const fileIdToUpload = uuidv4(); // Unique ID for the file
     const userDirectory = `users/${user.id}/files/${fileIdToUpload}`; // Define the path for the file in Vercel Blob
-    console.log("User Directory->", userDirectory);
+    //console.log("User Directory->", userDirectory);
     setStatus(StatusText.UPLOADING);
     
     try {
@@ -37,7 +37,7 @@ function useUpload() {
       const formData = new FormData();
       formData.append('file', file); // Append the file
       formData.append('userId', user.id); // Append the user ID
-        console.log("Form Data->", formData);
+        //console.log("Form Data->", formData);
       // Make a PUT request to upload the file to Vercel Blob
       // setProgress(10)
       const response = await fetch("https://5068-2401-4900-1c19-cb90-95b8-eabd-60d5-5ab8.ngrok-free.app/api/upload", {
@@ -60,7 +60,7 @@ function useUpload() {
       // Save the file metadata to Firestore (or any other database)
       setStatus(StatusText.SAVING);
 
-      console.log("Blob Data->", blobData);
+      //console.log("Blob Data->", blobData);
       
       await setDoc(doc(db, "users", user.id, "files", fileIdToUpload), {
         name: file.name,
@@ -77,7 +77,7 @@ function useUpload() {
 
       setFileId(fileIdToUpload);
     } catch (error) {
-      console.error("Error uploading file", error);
+      //console.error("Error uploading file", error);
       setStatus("Upload failed.");
     }
   };

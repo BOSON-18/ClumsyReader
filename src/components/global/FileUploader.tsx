@@ -22,10 +22,10 @@ const FileUploader = () => {
   }, [fileId, router])
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     // Do something with the files
-    console.log(acceptedFiles)
+    //console.log(acceptedFiles)
 
     const file = acceptedFiles[0];
-    console.log("File->",file)
+    //console.log("File->",file)
     if (file) {
       try {
         //await upload

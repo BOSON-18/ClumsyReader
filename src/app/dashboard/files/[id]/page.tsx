@@ -15,9 +15,9 @@ const ChatToFilePage =async ({params}: Props) => {
     const {userId}=await auth();
 
     const ref= await adminDb.collection("users").doc(userId!).collection("files").doc(id).get();
-    // console.log("ref",ref);
+    // //console.log("ref",ref);
     // const url= ref.data()?.downloadurl?.stringValue;
-    const url = (ref as any)._fieldsProto.downloadUrl.stringValue;    console.log("url",url);
+    const url = (ref as any)._fieldsProto.downloadUrl.stringValue;    //console.log("url",url);
   return (
     <div className="grid lg:grid-cols-5 h-full overflow-hidden">
     {/* Right */}
