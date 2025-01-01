@@ -8,18 +8,14 @@ type Props = {
     params: { id: string }
 }
 
+// No need to `await` the `params` since it's already available
 const ChatToFilePage = async ({ params }: Props) => {
-    const { id } = params; // no need to await params
+    const { id } = params; // Directly use params here, no need to await it
+    auth.protect();
+    const { userId } = await auth();
 
-    auth.protect(); // Protect the route
-
-    const { userId } = await auth(); // Use the userId from Clerk's auth
-
-    // Fetch the file from Firestore using the userId and id
     const ref = await adminDb.collection("users").doc(userId!).collection("files").doc(id).get();
-
-    // Extract the download URL
-    const url = (ref as any)._fieldsProto.downloadUrl.stringValue;
+    const url = (ref as any)._fieldsProto.downloadUrl.stringValue; // Access URL
 
     return (
         <div className="grid lg:grid-cols-5 h-full overflow-hidden">
@@ -38,4 +34,4 @@ const ChatToFilePage = async ({ params }: Props) => {
     )
 }
 
-export default ChatToFilePage;
+export default ChatToFilePage
