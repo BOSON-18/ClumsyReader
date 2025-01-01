@@ -39,6 +39,7 @@ function useUpload() {
       formData.append('userId', user.id); // Append the user ID
         console.log("Form Data->", formData);
       // Make a PUT request to upload the file to Vercel Blob
+      // setProgress(10)
       const response = await fetch("https://5068-2401-4900-1c19-cb90-95b8-eabd-60d5-5ab8.ngrok-free.app/api/upload", {
         method: "PUT",
         body: formData,
@@ -71,6 +72,7 @@ function useUpload() {
       });
 
       setStatus(StatusText.GENERATING);
+      // setProgress(100)
       await generateEmbeddings(fileIdToUpload); // Call embeddings generation if needed
 
       setFileId(fileIdToUpload);
