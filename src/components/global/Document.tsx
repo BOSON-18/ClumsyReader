@@ -20,7 +20,7 @@ function Document({
   downloadUrl: string;
 }) {
   const router = useRouter();
-  const [isDeleting, startTransaction] = useTransition();
+  // const [isDeleting, startTransaction] = useTransition();
 //   const { hasActiveMembership } = useSubscription();
 const hasActiveMembership = true;
 
@@ -41,7 +41,7 @@ const hasActiveMembership = true;
 
       {/* Actions */}
       <div className="flex space-x-2 justify-end">
-        <Button
+{/*         <Button
           variant="outline"
           disabled={isDeleting || !hasActiveMembership}
           onClick={() => {
@@ -61,7 +61,7 @@ const hasActiveMembership = true;
           {!hasActiveMembership && (
             <span className="text-red-500 ml-2">PRO Feature</span>
           )}
-        </Button>
+        </Button> */}
 
         <Button variant="outline" asChild>
           <a href={downloadUrl} download>
