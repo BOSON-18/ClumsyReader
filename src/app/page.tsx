@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import mainPage from "../../public/mainpage.png"
 
 const features = [
   {
@@ -89,7 +90,7 @@ export default function Home() {
             <Image
               alt="App screenshot"
 {/*               src="https://i.imgur.com/VciRSTI.jpeg" */}
-            src={"../../public/mainpage.png"}
+            src={mainPage}
               width={2432}
               height={1442}
               className="mb-[-0%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
