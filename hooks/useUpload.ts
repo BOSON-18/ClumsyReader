@@ -40,14 +40,14 @@ function useUpload() {
         console.log("Form Data->", formData);
       // Make a PUT request to upload the file to Vercel Blob
       // setProgress(10)
-      const response = await fetch("https://clumsyreader.vercel.app/api/upload", {
+      // const response = await fetch("https://clumsyreader.vercel.app/api/upload", {
+      //   method: "PUT",
+      //   body: formData,
+      // });
+      const response = await fetch("/api/upload", {
         method: "PUT",
         body: formData,
       });
-    //   const response = await fetch("/api/upload", {
-    //     method: "PUT",
-    //     body: formData,
-    //   });
 
       if (!response.ok) {
         throw new Error("File upload failed.");
